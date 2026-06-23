@@ -9,6 +9,7 @@
   --brand-blue: #1391D6;           /* Primary brand (AA-safe on white) */
   --brand-blue-light: #36C1FC;     /* Bright sky for gradients & glows */
   --brand-blue-hover: #0C73AE;     /* Darker hover state */
+  --brand-blue-deep: #0B6298;      /* AA-safe blue for small labels on light bg */
   --brand-sky-soft: #68D1FD;       /* Lightest sky tint */
 
   --brand-navy: #2A2F4E;           /* Deep indigo navy for dark panels */
@@ -190,7 +191,7 @@ p:last-child {
 .section-badge {
   display: inline-block;
   background: rgba(54, 193, 252, 0.12);
-  color: var(--brand-orange);
+  color: var(--brand-blue-deep);
   padding: 6px 16px;
   border-radius: 30px;
   font-size: 0.8rem;
@@ -1237,7 +1238,7 @@ footer .logo {
 }
 
 .process-num-tag {
-  background: var(--brand-orange);
+  background: var(--brand-blue-hover);
   color: var(--bg-white);
   padding: 4px 16px;
   border-radius: 20px;
@@ -1694,6 +1695,7 @@ footer {
   margin-bottom: 60px;
 }
 
+footer h3,
 footer h4 {
   color: var(--bg-white);
   font-size: 1.1rem;
@@ -1741,6 +1743,9 @@ footer ul li a:hover {
   margin-top: 1px;
 }
 
+.footer-bottom a {
+  text-decoration: underline;
+}
 .footer-bottom {
   border-top: 1px solid rgba(255,255,255,0.08);
   padding-top: 30px;
@@ -2338,6 +2343,7 @@ footer ul li a:hover {
 .cookie-bar a {
   color: var(--brand-blue-light);
   font-weight: 700;
+  text-decoration: underline;
 }
 .cookie-actions {
   display: flex;
