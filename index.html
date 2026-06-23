@@ -64,6 +64,7 @@
     "openingHours": "Mo-Fr 08:00-18:00, Sa 09:00-14:00"
   }
   </script>
+  <script src="analytics.js" defer></script>
 </head>
 <body>
 
@@ -980,6 +981,7 @@
       if (!data.success) throw new Error(data.message || 'Submission failed');
       document.getElementById('funnelResults').style.display = 'none';
       document.getElementById('funnelSuccess').style.display = 'block';
+      if (window.gtag) gtag('event', 'generate_lead', { request_type: type, currency: 'GBP', value: 0 });
     } catch (err) {
       statusEl.style.color = '#EF4444';
       statusEl.innerHTML = 'Sorry, we could not send your request. Please call us on <a href="tel:07711459450" style="color:inherit;font-weight:700;">07711 459450</a>.';

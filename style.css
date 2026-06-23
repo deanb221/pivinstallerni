@@ -2311,3 +2311,67 @@ footer ul li a:hover {
     margin-left: 0;
   }
 }
+
+/* ===== Cookie consent banner ===== */
+.cookie-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 4000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 14px 22px;
+  background: var(--dark-charcoal);
+  color: #fff;
+  box-shadow: 0 -8px 28px rgba(16, 24, 40, 0.22);
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+.cookie-bar p {
+  margin: 0;
+  max-width: 620px;
+}
+.cookie-bar a {
+  color: var(--brand-blue-light);
+  font-weight: 700;
+}
+.cookie-actions {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.cookie-btn {
+  border: 0;
+  border-radius: 9px;
+  padding: 9px 20px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  font-family: var(--font-headings);
+  transition: var(--transition);
+}
+.cookie-decline {
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+}
+.cookie-decline:hover {
+  background: rgba(255, 255, 255, 0.24);
+}
+.cookie-accept {
+  background: var(--cta);
+  color: #fff;
+}
+.cookie-accept:hover {
+  background: var(--cta-hover);
+}
+@media (max-width: 768px) {
+  .cookie-bar {
+    bottom: 68px; /* sit above the sticky mobile call/quote bar */
+    gap: 12px;
+    padding: 14px 18px;
+  }
+}
