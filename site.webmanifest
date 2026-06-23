@@ -1,0 +1,15 @@
+{
+  "name": "PIV Installer NI",
+  "short_name": "PIV NI",
+  "description": "Positive Input Ventilation specialists across Northern Ireland. Cure condensation, damp and black mould.",
+  "icons": [
+    { "src": "favicon-32x32.png", "sizes": "32x32", "type": "image/png" },
+    { "src": "favicon-64x64.png", "sizes": "64x64", "type": "image/png" },
+    { "src": "apple-touch-icon.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ],
+  "theme_color": "#20243C",
+  "background_color": "#20243C",
+  "display": "standalone",
+  "start_url": "/"
+}
