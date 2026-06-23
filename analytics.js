@@ -1,31 +1,9 @@
-/* PIV Installer NI — Google Analytics 4 with Consent Mode v2 + cookie banner.
-   Analytics storage is denied by default and only granted after the visitor
-   accepts, keeping the site compliant with UK PECR / GDPR. */
+/* PIV Installer NI — cookie consent banner for Google Consent Mode v2.
+   The Google tag and "consent default = denied" are set directly in each
+   page <head>. This file only manages the banner and grants analytics
+   storage once the visitor accepts, keeping the site UK PECR / GDPR friendly. */
 (function () {
-  var GA_ID = 'G-6HPP14HEFL';
   var STORAGE_KEY = 'pivCookieConsent';
-
-  window.dataLayer = window.dataLayer || [];
-  window.gtag = function () { dataLayer.push(arguments); };
-
-  // Default: deny everything until the user makes a choice.
-  gtag('consent', 'default', {
-    ad_storage: 'denied',
-    ad_user_data: 'denied',
-    ad_personalization: 'denied',
-    analytics_storage: 'denied',
-    functionality_storage: 'granted',
-    security_storage: 'granted'
-  });
-
-  // Load the Google tag.
-  var s = document.createElement('script');
-  s.async = true;
-  s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
-  document.head.appendChild(s);
-
-  gtag('js', new Date());
-  gtag('config', GA_ID);
 
   function readConsent() {
     try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
@@ -34,13 +12,9 @@
     try { localStorage.setItem(STORAGE_KEY, v); } catch (e) {}
   }
 
-  // Honour a previous "accept".
-  if (readConsent() === 'granted') {
-    gtag('consent', 'update', { analytics_storage: 'granted' });
-  }
-
   function buildBanner() {
     if (readConsent()) return; // already decided
+    if (typeof window.gtag !== 'function') return;
 
     var bar = document.createElement('div');
     bar.className = 'cookie-bar';
@@ -57,7 +31,7 @@
 
     bar.querySelector('.cookie-accept').addEventListener('click', function () {
       saveConsent('granted');
-      gtag('consent', 'update', { analytics_storage: 'granted' });
+      window.gtag('consent', 'update', { analytics_storage: 'granted' });
       bar.remove();
     });
     bar.querySelector('.cookie-decline').addEventListener('click', function () {
