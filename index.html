@@ -877,6 +877,12 @@
     document.getElementById('funnelResults').style.display = 'block';
     
     document.getElementById('userName').textContent = userData.name;
+
+    // Notify immediately — don't block the results screen if email fails
+    sendLeadNotification(
+      'New PIV quote — calculator completed',
+      'Quote viewed (awaiting booking)'
+    ).catch(function () {});
   }
 
   function generateRecommendations() {
@@ -957,9 +963,34 @@
 
   // ===== Lead delivery (Web3Forms) =====
   // Free, no server needed. Get an access key at https://web3forms.com
-  // (enter info@pivinstallerni.com) and paste it below. Every quote request
-  // is then emailed to that address.
+  // (enter info@pivinstallerni.com) and paste it below. Emails are sent when
+  // someone completes the calculator and again when they book a survey/callback.
   const WEB3FORMS_ACCESS_KEY = "a8b3b8f7-69a3-44c6-b30c-3c1202dfa324";
+
+  async function sendLeadNotification(subject, requestType) {
+    const honeypot = document.getElementById('botcheck');
+    if (honeypot && honeypot.checked) throw new Error('Submission blocked');
+
+    const formData = new FormData();
+    formData.append('access_key', WEB3FORMS_ACCESS_KEY);
+    formData.append('subject', subject);
+    formData.append('from_name', 'PIV Installer NI website');
+    formData.append('Request type', requestType);
+    formData.append('Name', userData.name);
+    formData.append('Phone', userData.phone);
+    formData.append('Email', userData.email);
+    formData.append('Postcode', userData.postcode);
+    formData.append('Property type', userData.propertyType);
+    formData.append('Bedrooms', userData.bedrooms);
+    formData.append('Main concern', userData.concern);
+
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      body: formData
+    });
+    const data = await res.json();
+    if (!data.success) throw new Error(data.message || 'Submission failed');
+  }
 
   async function confirmBooking(type) {
     const buttons = document.getElementById('bookingActions').querySelectorAll('button');
@@ -969,27 +1000,7 @@
     statusEl.textContent = 'Sending your request…';
 
     try {
-      const formData = new FormData();
-      formData.append('access_key', WEB3FORMS_ACCESS_KEY);
-      formData.append('subject', 'New PIV quote request — ' + type);
-      formData.append('from_name', 'PIV Installer NI website');
-      formData.append('Request type', type);
-      formData.append('Name', userData.name);
-      formData.append('Phone', userData.phone);
-      formData.append('Email', userData.email);
-      formData.append('Postcode', userData.postcode);
-      formData.append('Property type', userData.propertyType);
-      formData.append('Bedrooms', userData.bedrooms);
-      formData.append('Main concern', userData.concern);
-      const honeypot = document.getElementById('botcheck');
-      if (honeypot && honeypot.checked) formData.append('botcheck', 'true');
-
-      const res = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        body: formData
-      });
-      const data = await res.json();
-      if (!data.success) throw new Error(data.message || 'Submission failed');
+      await sendLeadNotification('New PIV quote request — ' + type, type);
       document.getElementById('funnelResults').style.display = 'none';
       document.getElementById('funnelSuccess').style.display = 'block';
       if (window.gtag) gtag('event', 'generate_lead', { request_type: type, currency: 'GBP', value: 0 });
