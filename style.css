@@ -750,15 +750,15 @@ footer .logo {
   }
 }
 
-/* ===== Trustpilot Badge Strip ===== */
-.trustpilot-strip {
+/* ===== Rating Badge Strip ===== */
+.rating-strip {
   background: #090A0D;
   border-bottom: 1px solid rgba(255,255,255,0.06);
   padding: 16px 0;
   color: var(--bg-white);
 }
 
-.trustpilot-strip .container {
+.rating-strip .container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -768,8 +768,8 @@ footer .logo {
   font-weight: 500;
 }
 
-.tp-star-box {
-  background: #00B67A;
+.rating-star-box {
+  background: var(--brand-blue);
   color: #fff;
   padding: 4px 8px;
   border-radius: 4px;
