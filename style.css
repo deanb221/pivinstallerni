@@ -1896,7 +1896,7 @@ footer ul li a:hover {
 /* ===== Credentials / Guarantee row ===== */
 .guarantee-row {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 20px;
   margin-top: 8px;
 }
